@@ -10,7 +10,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def imageTag = "${env.JOB_NAME}:${env.BUILD_NUMBER}"
+                
+                    def imageTag = "${env.BUILD_NUMBER}"
                     sh """
                         docker build -t ${DOCKERHUB_REPO}:${imageTag} .
                     """
@@ -33,7 +34,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    def imageTag = "${env.JOB_NAME}:${env.BUILD_NUMBER}"
+                    def imageTag = "${env.BUILD_NUMBER}"
                     sh "docker push ${DOCKERHUB_REPO}:${imageTag}"
                 }
             }
